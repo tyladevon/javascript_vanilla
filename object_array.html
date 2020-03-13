@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JS Reference vs Copy</title>
+  </head>
+  <body>
+    <script>
+      // copying arrays to change instead of references
+      const players = ['Tyla', 'Zadin', 'Luna', 'Mike'];
+      const team = players;
+      console.log(players, team);
+      // team[3] = 'Phoebe';
+
+      // first way
+      const team2 = players.slice();
+      team2[3] = 'Marble';
+      console.log(players, team2);
+
+      // second way
+      const team3 = [].concat(players);
+
+      // third way
+      const team4 = [...players];
+      team4[3] = 'Shadow';
+
+      // fourth way
+      const team5 = Array.from(players);
+      team5[3] = 'Lilly';
+
+      console.log(players, team5);
+
+      // objects
+      const person = {
+        name: 'Tyla Devon',
+        age: 80
+      }
+
+      // this references the original one and changes the age
+      const captain = person;
+      captain.number = 99;
+
+      // Below--in order to make a copy and change the copy, use object.assign
+      // Need three arguments--an empty object, pass it the object you want to copy the attributes from,
+      // the properties you want to override or add in. 
+      const cap2 = Object.assign({}, person, { age: 99});
+      console.log(cap2);
+
+      // below is object spread--will only go one level deep 
+
+      const cap3 = {...person};
+
+      const tyla = {
+        name: 'Tyla',
+        age: 100,
+        social: {
+          twitter: '@tyladevon',
+          facebook: 'tyladevon',
+        }
+      };
+      console.clear();
+      console.log(tyla);
+      const dev = Object.assign({}, tyla);
+      dev.name = 'Devon';
+
+      console.log(tyla, dev)
+
+      // can only override or add one level deep(i.e.name, age). If you try to adjust 
+      // twitter or facebook and do it in the object.assign, it will impact both the
+      // copy and the original... no bueno... If you need to 
+      // change something deeper than the first level(i.e. social), look at clone
+      // ask yourself why you are trying to clone... is there a better way
+
+      // there is also the poormans clone--but unsure about performance
+      
+    </script>
+  </body>
+</html>
